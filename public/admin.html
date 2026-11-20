@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración — Webcams España</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="admin-page">
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">◉</span><span>webcams<span class="brand-accent">.es</span></span></a>
+    <div class="topbar-right">
+      <a class="admin-link" href="/">← Ver mapa público</a>
+    </div>
+  </header>
+
+  <main class="admin-wrap">
+    <section id="loginView" class="login-card">
+      <div class="login-symbol">◉</div>
+      <p class="eyebrow">ZONA PRIVADA</p>
+      <h1>Panel de administración</h1>
+      <p class="muted">Accede para gestionar las webcams del mapa.</p>
+      <form id="loginForm" class="form-stack">
+        <label>Usuario<input name="username" required autocomplete="username" placeholder="Tu usuario"></label>
+        <label>Contraseña<input name="password" type="password" required autocomplete="current-password" placeholder="Tu contraseña"></label>
+        <button class="primary-button" type="submit">Entrar al panel <span>→</span></button>
+        <p id="loginError" class="form-error" role="alert"></p>
+      </form>
+      <a class="back-link" href="/">← Volver al mapa</a>
+    </section>
+
+    <section id="dashboardView" class="dashboard hidden">
+      <div class="dashboard-header">
+        <div><p class="eyebrow">GESTIÓN DE CONTENIDO</p><h1>Webcams</h1><p class="muted">Añade, edita y publica puntos en el mapa.</p></div>
+        <div class="dashboard-actions"><span id="adminName" class="admin-user"></span><button id="logoutButton" class="secondary-button">Cerrar sesión</button></div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card"><span>Total de cámaras</span><strong id="totalCount">0</strong></div>
+        <div class="stat-card"><span>Publicadas</span><strong id="activeCount">0</strong></div>
+        <div class="stat-card"><span>Ocultas</span><strong id="inactiveCount">0</strong></div>
+      </div>
+
+      <div class="admin-grid">
+        <section class="panel form-panel">
+          <div class="panel-title"><div><p class="eyebrow">FICHA DE CÁMARA</p><h2 id="formTitle">Añadir webcam</h2></div><span class="panel-icon">＋</span></div>
+          <p class="form-help">Haz clic en el mapa para seleccionar las coordenadas o introdúcelas manualmente.</p>
+          <form id="webcamForm" class="form-stack">
+            <input type="hidden" name="id">
+            <label>Nombre de la webcam<input name="name" required maxlength="140" placeholder="Ej. Playa de Las Canteras"></label>
+            <div class="two-cols">
+              <label>Provincia<input name="province" required maxlength="100" placeholder="Las Palmas"></label>
+              <label>Categoría<select name="category" required>
+                <option value="Playa">Playa</option><option value="Montaña">Montaña</option>
+                <option value="Ciudad">Ciudad</option><option value="Esquí">Esquí</option>
+                <option value="Puerto">Puerto</option><option value="Naturaleza">Naturaleza</option>
+                <option value="Otros">Otros</option>
+              </select></label>
+            </div>
+            <div class="two-cols">
+              <label>Latitud<input name="latitude" type="number" step="any" min="-90" max="90" required placeholder="28.139"></label>
+              <label>Longitud<input name="longitude" type="number" step="any" min="-180" max="180" required placeholder="-15.431"></label>
+            </div>
+            <label>URL de la webcam<input name="url" type="url" required placeholder="https://…"></label>
+            <label>Descripción <span class="optional">(opcional)</span><textarea name="description" rows="3" maxlength="1000" placeholder="Información adicional sobre esta cámara…"></textarea></label>
+            <label class="toggle-row"><input name="active" type="checkbox" checked><span><strong>Publicar en el mapa</strong><small>Si está desactivada, solo aparecerá en este panel.</small></span></label>
+            <div class="form-actions"><button class="primary-button" type="submit" id="saveButton">Guardar webcam <span>→</span></button><button class="secondary-button hidden" id="cancelEdit" type="button">Cancelar</button></div>
+            <p id="formMessage" class="form-message" role="status"></p>
+          </form>
+        </section>
+
+        <section class="panel map-picker-panel">
+          <div class="panel-title"><div><p class="eyebrow">UBICACIÓN</p><h2>Selecciona en el mapa</h2></div><span class="panel-icon">⌖</span></div>
+          <div id="pickerMap" class="picker-map"></div>
+          <p class="map-caption">Pulsa sobre el mapa para rellenar latitud y longitud.</p>
+        </section>
+      </div>
+
+      <section class="panel table-panel">
+        <div class="panel-title table-title"><div><p class="eyebrow">CONTENIDO</p><h2>Webcams registradas</h2></div><input id="tableSearch" class="table-search" type="search" placeholder="Filtrar cámaras…"></div>
+        <div class="table-scroll">
+          <table><thead><tr><th>Nombre</th><th>Provincia</th><th>Categoría</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="webcamRows"><tr><td colspan="5" class="empty-cell">Cargando cámaras…</td></tr></tbody></table>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

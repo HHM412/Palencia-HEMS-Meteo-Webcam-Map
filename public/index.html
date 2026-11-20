@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explora webcams en directo de España desde un mapa interactivo.">
+  <title>Webcams España — Mapa en directo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="public-page">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Webcams España inicio">
+      <span class="brand-mark">◉</span>
+      <span>webcams<span class="brand-accent">.es</span></span>
+    </a>
+    <div class="topbar-right">
+      <span class="live-indicator"><i></i> Mapa de cámaras</span>
+      <a class="admin-link" href="/admin">Administración <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="map-shell">
+    <aside class="sidebar">
+      <div class="sidebar-heading">
+        <p class="eyebrow">DESCUBRE ESPAÑA</p>
+        <h1>Explora en directo</h1>
+        <p class="muted">Encuentra vistas en tiempo real de playas, ciudades y paisajes.</p>
+      </div>
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Buscar lugar o provincia…" autocomplete="off">
+      </label>
+      <div class="filter-heading">
+        <span>Categorías</span>
+        <button id="clearFilters" class="text-button" type="button">Limpiar</button>
+      </div>
+      <div id="categoryFilters" class="category-list">
+        <button class="category-chip selected" data-category="Todas" type="button"><span>✦</span> Todas</button>
+        <button class="category-chip" data-category="Playa" type="button"><span>⌁</span> Playas</button>
+        <button class="category-chip" data-category="Montaña" type="button"><span>△</span> Montaña</button>
+        <button class="category-chip" data-category="Ciudad" type="button"><span>▦</span> Ciudades</button>
+        <button class="category-chip" data-category="Esquí" type="button"><span>❄</span> Esquí</button>
+        <button class="category-chip" data-category="Puerto" type="button"><span>⚓</span> Puertos</button>
+        <button class="category-chip" data-category="Naturaleza" type="button"><span>♧</span> Naturaleza</button>
+        <button class="category-chip" data-category="Otros" type="button"><span>＋</span> Otros</button>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="count-card">
+          <span class="count-icon">◉</span>
+          <div><strong id="cameraCount">—</strong><small>webcams disponibles</small></div>
+        </div>
+        <p class="tiny-note">Las emisiones dependen de la disponibilidad de cada cámara.</p>
+      </div>
+    </aside>
+
+    <section class="map-area" aria-label="Mapa de webcams">
+      <div id="map"></div>
+      <div class="map-hint"><span class="hint-dot"></span> Selecciona un marcador para ver la cámara</div>
+      <div id="mapError" class="map-error hidden">No se pudieron cargar las webcams. Comprueba la conexión e inténtalo de nuevo.</div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/js/map.js"></script>
+</body>
+</html>
